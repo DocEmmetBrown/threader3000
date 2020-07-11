@@ -5,6 +5,7 @@ import time
 import threading
 from queue import Queue
 from datetime import datetime
+import os.path
 
 socket.setdefaulttimeout(0.55)
 print_lock = threading.Lock()
@@ -14,8 +15,11 @@ print("-" * 50)
 print("Python Port Scanner 3000")
 print("A project by The Mayor/Dievus")
 print("-" * 50)
-time.sleep(1)
-target = input("Enter your target IP address or URL here: ")
+
+if os.path.exists("target"):
+  target = open("target").readline().rstrip()
+else: 
+  target = input("Enter your target IP address or URL here: ")
 t_IP = socket.gethostbyname(target)
 
 #Banner
@@ -62,6 +66,3 @@ t2 = datetime.now()
 total = t2 - t1
 print("Port scan completed in "+str(total))
 print("-" * 50)
-
-print("Press the Enter button to exit...")
-input()
